@@ -22,7 +22,7 @@ data_dir = "/data/models/slim/"
 
 #IMAGE_DIR = '/data/models/slim/retrainedmodel/prescan_jpg_embedding'
 #LOG_DIR = '/data/models/slim/logs_aug11_7classes'
-IMAGE_DIR = '/data/tmp/flowers_cifar_mnist/flowers/flower_photos/flower_pics'
+IMAGE_DIR = '/data/tmp/flower_pics'
 LOG_DIR = '/data/models/slim/logs_flowers'
 
 
@@ -110,10 +110,10 @@ def main(argv=None):
 
         pool3 = sess.graph.get_tensor_by_name('pool_3:0')
         jpeg_data = tf.placeholder(tf.string)
-        #thumbnail = tf.cast(tf.image.resize_images(tf.image.decode_jpeg(jpeg_data, channels=3), [100, 100]), tf.uint8)
+        
 
         outputs = []
-        images = []
+      
 
         # Create metadata
         metadata_path = os.path.join(LOG_DIR, 'metadata.tsv')
@@ -132,8 +132,7 @@ def main(argv=None):
                         'DecodeJpeg/contents:0': data, jpeg_data: data})
                     #print("results", results)
                     outputs.append(results[0])
-                    #images.append(results[1])
-                    #print("images", outputs)
+                    
                     metadata.write('{}\t{}\n'.format(file_name, folder_name))
         metadata.close()
 
